@@ -10,8 +10,12 @@ import { AppRoutingModule } from './app-routing.module';
 // containers
 import { AppComponent } from './containers/app.component';
 
+// components
+import { HeaderComponent } from './components/header/header.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HeaderComponent, NavbarComponent],
   imports: [BrowserModule, AppRoutingModule, AuthModule],
   providers: [Store],
   bootstrap: [AppComponent],
