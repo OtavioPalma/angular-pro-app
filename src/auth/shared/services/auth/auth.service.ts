@@ -16,6 +16,10 @@ export interface User {
 export class AuthService {
   constructor(private store: Store, private angularFireAuth: AngularFireAuth) {}
 
+  get authState() {
+    return this.angularFireAuth.authState;
+  }
+
   auth$ = this.angularFireAuth.authState.pipe(
     map((next) => {
       if (!next) {

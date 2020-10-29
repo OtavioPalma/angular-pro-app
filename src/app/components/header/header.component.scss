@@ -5,6 +5,7 @@
   text-align: center;
   img {
     display: inline-block;
+    width: 200px;
   }
   &__user-info {
     position: absolute;
@@ -15,8 +16,8 @@
   span {
     background: url("/assets/images/logout.svg") no-repeat;
     background-size: contain;
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
     display: block;
     opacity: 0.4;
     &:hover {
