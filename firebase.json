@@ -3,8 +3,10 @@
     "rules": "database.rules.json"
   },
   "hosting": {
+    "target": "angular-pro-app",
     "public": "dist/angular-pro-app",
     "ignore": [
+      "**/.*",
       "firebase.json",
       ".firebaserc",
       ".vscode",
@@ -18,6 +20,17 @@
       "tsconfig.json",
       "yarn.lock",
       "**/node_modules/**"
+    ],
+    "headers": [
+      {
+        "source": "*.[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].+(css|js)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public,max-age=31536000,immutable"
+          }
+        ]
+      }
     ],
     "rewrites": [
       {

@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "fitness-app-otavio"
+  },
+  "targets": {
+    "fitness-app-otavio": {
+      "hosting": {
+        "angular-pro-app": [
+          "fitness-app-otavio"
+        ]
+      }
+    }
   }
 }
