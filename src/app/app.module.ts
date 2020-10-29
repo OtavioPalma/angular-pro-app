@@ -3,11 +3,15 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { Store } from 'store';
 
-import { AppComponent } from './containers/app/app.component';
+// feature modules
+import { AuthModule } from '../auth/auth.module';
+
+// containers
+import { AppComponent } from './containers/app.component';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule],
+  imports: [BrowserModule, AuthModule],
   providers: [Store],
   bootstrap: [AppComponent],
 })
