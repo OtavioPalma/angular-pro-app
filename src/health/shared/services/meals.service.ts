@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { from, Observable } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { from, of } from 'rxjs';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { AuthService } from 'src/auth/shared/services/auth/auth.service';
 import { Store } from 'store';
 
@@ -17,13 +17,18 @@ export interface Meal {
   providedIn: 'root',
 })
 export class MealsService {
-  meals$: Observable<Meal[]> = from(this.authService.user).pipe(
+  meals$ = from(this.authService.user).pipe(
     switchMap((user) => {
       return this.angularFireDatabase
         .list<Meal>(`meals/${user.uid}`)
-        .valueChanges();
+        .snapshotChanges();
     }),
-    tap((res) => this.store.set('meals', res))
+    tap((res) =>
+      this.store.set(
+        'meals',
+        res.map((el) => ({ ...el.payload.val(), $key: el.key }))
+      )
+    )
   );
 
   constructor(
@@ -31,4 +36,33 @@ export class MealsService {
     private angularFireDatabase: AngularFireDatabase,
     private authService: AuthService
   ) {}
+
+  addMeal(meal: Meal) {
+    return from(this.authService.user).subscribe((user) => {
+      return this.angularFireDatabase.list(`meals/${user.uid}`).push(meal);
+    });
+  }
+
+  removeMeal(key: string) {
+    return from(this.authService.user).subscribe((user) => {
+      return this.angularFireDatabase.list(`meals/${user.uid}`).remove(key);
+    });
+  }
+
+  getMeal(key: string) {
+    if (!key) return of({});
+
+    return this.store.select<Meal[]>('meals').pipe(
+      filter(Boolean),
+      map((meals: Meal[]) => meals.find((meal: Meal) => meal.$key === key))
+    );
+  }
+
+  updateMeal(key: string, meal: Meal) {
+    return from(this.authService.user).subscribe((user) => {
+      return this.angularFireDatabase
+        .object(`meals/${user.uid}/${key}`)
+        .update(meal);
+    });
+  }
 }

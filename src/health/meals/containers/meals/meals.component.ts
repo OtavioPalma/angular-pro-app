@@ -25,6 +25,12 @@ import { Store } from 'store';
             <img src="../../../../assets/images/face.svg" />
             No Meals! Add a new meal to start
           </div>
+
+          <app-list-item
+            *ngFor="let meal of meals"
+            [item]="meal"
+            (remove)="removeMeal($event)"
+          ></app-list-item>
         </div>
 
         <ng-template #loading>
@@ -51,5 +57,10 @@ export class MealsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription && this.subscription.unsubscribe();
+  }
+
+  removeMeal(event: Meal) {
+    console.log(event);
+    this.mealsService.removeMeal(event.$key);
   }
 }
