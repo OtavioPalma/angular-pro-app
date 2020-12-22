@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { map } from 'rxjs/operators';
-
 import { Store } from 'store';
 
 export interface User {
@@ -15,6 +14,10 @@ export interface User {
 })
 export class AuthService {
   constructor(private store: Store, private angularFireAuth: AngularFireAuth) {}
+
+  get user() {
+    return this.angularFireAuth.currentUser;
+  }
 
   get authState() {
     return this.angularFireAuth.authState;
