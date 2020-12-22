@@ -60,7 +60,6 @@ export class MealsComponent implements OnInit, OnDestroy {
   }
 
   removeMeal(event: Meal) {
-    console.log(event);
     this.mealsService.removeMeal(event.$key);
   }
 }

@@ -25,7 +25,7 @@ import { Meal, MealsService } from 'src/health/shared/services/meals.service';
             [meal]="meal"
             (create)="addMeal($event)"
             (update)="updateMeal($event)"
-            (remove)="removeMeal($event)"
+            (remove)="removeMeal()"
           ></app-meal-form>
         </div>
 
