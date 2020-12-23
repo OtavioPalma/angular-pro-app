@@ -8,9 +8,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
         <p class="list-item__name">{{ item.name }}</p>
 
         <p class="list-item__ingredients">
-          <span>
-            {{ item.ingredients }}
+          <span *ngIf="item.ingredients; else showWorkout">
+            {{ item.ingredients | join }}
           </span>
+
+          <ng-template #showWorkout>
+            {{ item | workout }}
+          </ng-template>
         </p>
       </a>
 
@@ -51,6 +55,6 @@ export class ListItemComponent {
   }
 
   getRoute(item: any) {
-    return [`../meals`, item.$key];
+    return [`../${item.ingredients ? 'meals' : 'workouts'}`, item.$key];
   }
 }
